@@ -1,5 +1,81 @@
 import 'package:flutter/material.dart';
 
+class Wisdom extends StatefulWidget {
+  const Wisdom({Key? key}) : super(key: key);
+
+  @override
+  _WisdomState createState() => _WisdomState();
+}
+
+class _WisdomState extends State<Wisdom> {
+  int _index = 0;
+  List quotes = [
+    'void main() is the start',
+    'Everything in Flutter is Widget/Component',
+    'runApp() takes three kinds of application',
+    'WidgetsApp - Little bit low level; Not provide inbuild design support',
+    'MaterialApp - build with so much design ',
+    'CupertinoApp - Human interface design',
+    'Changes in runApp() needs to click \'restart\' to see the output.',
+    'Scaffold() widget is kind of structure with some basic widgets',
+    'StatelessWidget - not supposed to change',
+    'Container & Text are the most powerful widgets',
+    'BuildContext - Knows the location of the Widget in the widget tree. It is a widget of widgets!'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  width: 400,
+                  decoration: BoxDecoration(
+                      color: Colors.blue[900],
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        quotes[_index],
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                const Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: TextButton.icon(
+                      onPressed: _showQuote,
+                      icon: const Icon(Icons.surfing),
+                      label: const Text('Inspire Me!'),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white))),
+                ),
+                Spacer()
+              ],
+            ),
+          ),
+        ));
+  }
+
+  void _showQuote() {
+    setState(() {
+      _index = ++_index % quotes.length;
+    });
+  }
+}
+
 class BizCard extends StatelessWidget {
   const BizCard({Key? key}) : super(key: key);
 

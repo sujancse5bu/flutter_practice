@@ -5,7 +5,8 @@ void main() {
   // runApp(const Home());
   runApp(MaterialApp(
     // home: const ScaffoldExample(),
-    home: const BizCard(),
+    // home: const BizCard(),
+    home: const Wisdom(),
     theme: ThemeData(
         textTheme: const TextTheme(
           bodyText1: TextStyle(color: Colors.white),
