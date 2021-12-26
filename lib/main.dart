@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_practice/ui/home.dart';
 
 void main() {
-  runApp(const MaterialApp(home: BillSplitter()));
+  runApp(const MaterialApp(home: QuizApp()));
+  // runApp(const MaterialApp(home: BillSplitter()));
   // runApp(const Home());
   // runApp(MaterialApp(
   //   // home: const ScaffoldExample(),

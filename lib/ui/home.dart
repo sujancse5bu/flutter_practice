@@ -1,5 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/model/question.dart';
 import 'package:flutter_practice/util/hexcolor.dart';
+
+class QuizApp extends StatefulWidget {
+  const QuizApp({Key? key}) : super(key: key);
+
+  @override
+  _QuizAppState createState() => _QuizAppState();
+}
+
+class _QuizAppState extends State<QuizApp> {
+  int _currentQuestionIndex = 0;
+  List questionBank = [
+    Question.name(
+        'The US Declaration of Independence was adopted in 1776.', true),
+    Question.name('Thela fadfa dklsdf ******************************', false),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('True Citizen'),
+          centerTitle: true,
+          backgroundColor: Colors.blueGrey,
+        ),
+        backgroundColor: Colors.blueGrey,
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Center(
+                child: Image.asset(
+                  'images/us.png',
+                  width: 250,
+                  height: 200,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  height: 120.0,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                          questionBank[_currentQuestionIndex].questionText,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 17, color: Colors.white)),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                          color: Colors.blueGrey.shade400,
+                          style: BorderStyle.solid)),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () => _prevQuestion(),
+                    child: const Icon(Icons.arrow_back, color: Colors.white),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.blueGrey.shade900)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _checkAnswer(true),
+                    child: const Text('TRUE',
+                        style: TextStyle(color: Colors.white)),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.blueGrey.shade900)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _checkAnswer(false),
+                    child: const Text('FALSE',
+                        style: TextStyle(color: Colors.white)),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.blueGrey.shade900)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _nextQuestion(),
+                    child: const Icon(Icons.arrow_forward, color: Colors.white),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.blueGrey.shade900)),
+                  )
+                ],
+              )
+            ],
+          ),
+        ));
+  }
+
+  _checkAnswer(bool userChoice) {
+    bool isCorrect = userChoice == questionBank[_currentQuestionIndex].isCorrect
+        ? true
+        : false;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          isCorrect ? 'Yes! Correct.' : 'Nope! Incorrect.',
+        ),
+        backgroundColor: isCorrect ? Colors.green : Colors.redAccent,
+        duration: const Duration(milliseconds: 500)));
+    _nextQuestion();
+  }
+
+  _nextQuestion() {
+    setState(() {
+      _currentQuestionIndex = ++_currentQuestionIndex % questionBank.length;
+    });
+  }
+
+  _prevQuestion() {
+    setState(() {
+      _currentQuestionIndex = --_currentQuestionIndex % questionBank.length;
+    });
+  }
+}
 
 class BillSplitter extends StatefulWidget {
   const BillSplitter({Key? key}) : super(key: key);
@@ -422,7 +545,7 @@ class CustomButton extends StatelessWidget {
               'Hello from SnackBar',
             ),
             duration: Duration(seconds: 2));
-        Scaffold.of(context).showSnackBar(snakbar);
+        ScaffoldMessenger.of(context).showSnackBar(snakbar);
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
