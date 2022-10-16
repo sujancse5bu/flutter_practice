@@ -23,9 +23,9 @@ class _QuizAppState extends State<QuizApp> {
         appBar: AppBar(
           title: Text('True Citizen'),
           centerTitle: true,
-          backgroundColor: Colors.blueGrey,
+          // backgroundColor: Colors.lightBlue[900],
         ),
-        backgroundColor: Colors.blueGrey,
+        // backgroundColor: Colors.blueGrey,
         body: Container(
           child: Column(
             children: <Widget>[
@@ -44,10 +44,12 @@ class _QuizAppState extends State<QuizApp> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          questionBank[_currentQuestionIndex].questionText,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 17, color: Colors.white)),
+                        questionBank[_currentQuestionIndex].questionText,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        // style: const TextStyle(
+                        //     fontSize: 17, color: Colors.white)
+                      ),
                     ),
                   ),
                   decoration: BoxDecoration(
